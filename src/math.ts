@@ -27,11 +27,11 @@ function percentilesLinearInterpolation(array: number[], pArray: number[], { pre
         const pos = p * (array.length - 1);
         const base = Math.floor(pos);
         const rest = pos - base;
-        // eslint-disable-next-line no-negated-condition
-        if (array[base + 1] !== undefined) {
-            result.push(array[base]! + rest * (array[base + 1]! - array[base]!));
-        } else {
+
+        if (array[base + 1] === undefined) {
             result.push(array[base]!);
+        } else {
+            result.push(array[base]! + rest * (array[base + 1]! - array[base]!));
         }
     }
 

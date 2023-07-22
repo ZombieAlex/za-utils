@@ -125,13 +125,16 @@ export class ExpiringMap<K, V> {
         if (typeof expiryMs === "number") {
             expiry = Date.now() + expiryMs;
             timer = setTimeout(
-                toSync(async () => {
-                    this.delete(key);
+                toSync(
+                    async () => {
+                        this.delete(key);
 
-                    if (typeof expiryCallback === "function") {
-                        await expiryCallback(key, value, this);
-                    }
-                }, this.#options?.expireErrorCallback),
+                        if (typeof expiryCallback === "function") {
+                            await expiryCallback(key, value, this);
+                        }
+                    },
+                    this.#options?.expireErrorCallback,
+                ),
                 expiryMs,
             );
         }

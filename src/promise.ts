@@ -64,21 +64,23 @@ export function resolveWhenAny(...args: Array<CancellablePromise<any>>): Cancell
         };
 
         for (const [i, arg] of args.entries()) {
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            arg?.then(() => {
-                if (!completed) {
-                    completed = true;
-                    cancelAllExcept(i);
-                    resolve(i);
-                }
+            arg
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
-            }).catch((error) => {
-                if (!completed) {
-                    completed = true;
-                    cancelAllExcept(i);
-                    reject(error);
-                }
-            });
+                ?.then(() => {
+                    if (!completed) {
+                        completed = true;
+                        cancelAllExcept(i);
+                        resolve(i);
+                    }
+                })
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                .catch((error) => {
+                    if (!completed) {
+                        completed = true;
+                        cancelAllExcept(i);
+                        reject(error);
+                    }
+                });
         }
     }) as unknown as CancellablePromise<number>;
 

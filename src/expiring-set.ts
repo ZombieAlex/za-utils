@@ -104,13 +104,16 @@ export class ExpiringSet<T> {
         if (typeof expiryMs === "number") {
             expiry = Date.now() + expiryMs;
             timer = setTimeout(
-                toSync(async () => {
-                    this.delete(value);
+                toSync(
+                    async () => {
+                        this.delete(value);
 
-                    if (typeof expiryCallback === "function") {
-                        await expiryCallback(value, this);
-                    }
-                }, this.#options?.expireErrorCallback),
+                        if (typeof expiryCallback === "function") {
+                            await expiryCallback(value, this);
+                        }
+                    },
+                    this.#options?.expireErrorCallback,
+                ),
                 expiryMs,
             );
         }

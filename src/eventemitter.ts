@@ -1,4 +1,5 @@
 import { type CancellablePromise } from "./promise.js";
+import { hasShapeOf } from "./type-guards.js";
 
 // @TODO - Typed variants based on RefinedEventEmitter
 
@@ -133,12 +134,12 @@ export function rejectWhen(
                             return;
                         }
 
-                        if (arg.error instanceof Error) {
+                        if (hasShapeOf<{ error: Error }>(arg, { objects: ["error"] }) && arg.error instanceof Error) {
                             reject(arg.error);
                             return;
                         }
 
-                        if (typeof arg.error === "string") {
+                        if (hasShapeOf<{ error: string }>(arg, { strings: ["error"] })) {
                             reject(new Error(arg.error));
                             return;
                         }
