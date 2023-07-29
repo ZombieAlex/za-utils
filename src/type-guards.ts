@@ -118,6 +118,28 @@ export function assertShapeOf<T>(object: unknown, shape: ShapeConfig<T>): assert
 }
 
 /**
+ * Type guard that validates the given object with a given validator function.
+ * @param object
+ * @param condition
+ * @returns
+ */
+export function isType<T>(object: unknown, validator: (object?: Partial<T>) => boolean): object is T {
+    return validator(object as Partial<T>);
+}
+
+/**
+ * Assertion type guard that validates the given object with a given validator function.
+ * @param object
+ * @param condition
+ * @returns
+ */
+export function assertType<T>(object: unknown, validator: (object?: Partial<T>) => boolean): asserts object is T {
+    if (!validator(object as Partial<T>)) {
+        throw new TypeError("object was not the expected type");
+    }
+}
+
+/**
  * Like JSON.parse() but with strong type checking based on the specified shape.
  * @param text
  * @param shape

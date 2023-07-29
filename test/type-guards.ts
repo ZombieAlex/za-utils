@@ -8,6 +8,8 @@ import {
     isString,
     isArray,
     isFunction,
+    isType,
+    assertType,
 } from "../src/index.js";
 
 test("assertShape validates strings", (t) => {
@@ -138,6 +140,20 @@ test("jsonParse works", (t) => {
     const object = { a: 32 };
     const parsedObject = jsonParse<{ a: number }>(JSON.stringify(object), { numbers: ["a"] });
     t.true(func(parsedObject));
+});
+
+test("isType works", (t) => {
+    const object = { a: 32 };
+    t.true(isType<{ a: number }>(object, (o) => typeof o?.a === "number"));
+    t.false(isType<{ a: number }>(object, (o) => typeof o?.a === "string"));
+});
+
+test("assertType works", (t) => {
+    const object = { a: 32 };
+    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+    t.notThrows(() => assertType<{ a: number }>(object, (o) => typeof o?.a === "number"));
+    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+    t.throws(() => assertType<{ a: number }>(object, (o) => typeof o?.a === "string"));
 });
 
 test("isNumber works", (t) => {
