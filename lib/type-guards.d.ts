@@ -1,17 +1,29 @@
 export type ShapeConfig<T> = {
-    /** List of string type properties. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of string type properties. */
     strings?: Array<keyof T>;
-    /** List of number type properties. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of string type paths. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    stringPaths?: string[];
+    /** List of number type properties. */
     numbers?: Array<keyof T>;
-    /** List of boolean type properties. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of number type paths. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    numberPaths?: string[];
+    /** List of boolean type properties. */
     booleans?: Array<keyof T>;
-    /** List of array type properties. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of boolean type paths. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    booleanPaths?: string[];
+    /** List of array type properties. */
     arrays?: Array<keyof T>;
-    /** List of object type properties. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of array type paths. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    arrayPaths?: string[];
+    /** List of object type properties. */
     objects?: Array<keyof T>;
-    /** List of function type properties. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of object type paths. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    objectPaths?: string[];
+    /** List of function type properties. */
     functions?: Array<keyof T>;
-    /** List of properties allowed to be undefined. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of function type paths. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    functionPaths?: string[];
+    /** List of properties allowed to be undefined. */
     optionals?: Array<keyof T>;
     /** If true, validation will fail for any extra top level properties */
     strict?: boolean;
@@ -21,7 +33,7 @@ export type ShapeConfig<T> = {
  * @param object
  * @param param1
  */
-export declare function assertShape(object: unknown, { strings, numbers, booleans, arrays, objects, functions, optionals, strict, }: ShapeConfig<any>): void;
+export declare function assertShape(object: unknown, { strings, stringPaths, numbers, numberPaths, booleans, booleanPaths, arrays, arrayPaths, objects, objectPaths, functions, functionPaths, optionals, strict, }: ShapeConfig<any>): void;
 /**
  * Type guard that validates the given object has the given shape.
  * @param object

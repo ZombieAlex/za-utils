@@ -1,19 +1,31 @@
 import _ from "lodash";
 
 export type ShapeConfig<T> = {
-    /** List of string type properties. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of string type properties. */
     strings?: Array<keyof T>;
-    /** List of number type properties. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of string type paths. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    stringPaths?: string[];
+    /** List of number type properties. */
     numbers?: Array<keyof T>;
-    /** List of boolean type properties. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of number type paths. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    numberPaths?: string[];
+    /** List of boolean type properties. */
     booleans?: Array<keyof T>;
-    /** List of array type properties. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of boolean type paths. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    booleanPaths?: string[];
+    /** List of array type properties. */
     arrays?: Array<keyof T>;
-    /** List of object type properties. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of array type paths. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    arrayPaths?: string[];
+    /** List of object type properties. */
     objects?: Array<keyof T>;
-    /** List of function type properties. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of object type paths. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    objectPaths?: string[];
+    /** List of function type properties. */
     functions?: Array<keyof T>;
-    /** List of properties allowed to be undefined. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    /** List of function type paths. Accepts lodash path syntax: https://lodash.com/docs/4.17.15#get */
+    functionPaths?: string[];
+    /** List of properties allowed to be undefined. */
     optionals?: Array<keyof T>;
     /** If true, validation will fail for any extra top level properties */
     strict?: boolean;
@@ -28,11 +40,17 @@ export function assertShape(
     object: unknown,
     {
         strings = [],
+        stringPaths = [],
         numbers = [],
+        numberPaths = [],
         booleans = [],
+        booleanPaths = [],
         arrays = [],
+        arrayPaths = [],
         objects = [],
+        objectPaths = [],
         functions = [],
+        functionPaths = [],
         optionals = [],
         strict = false,
     }: ShapeConfig<any>,
@@ -44,8 +62,34 @@ export function assertShape(
     const shapedObject = object as Record<string | number | symbol, unknown>;
 
     const errors: string[] = [];
-    const bags = [strings, numbers, booleans, arrays, objects, functions];
-    const expectedTypes = ["string", "number", "boolean", "array", "object", "function"];
+    const bags = [
+        strings,
+        stringPaths,
+        numbers,
+        numberPaths,
+        booleans,
+        booleanPaths,
+        arrays,
+        arrayPaths,
+        objects,
+        objectPaths,
+        functions,
+        functionPaths,
+    ];
+    const expectedTypes = [
+        "string",
+        "string",
+        "number",
+        "number",
+        "boolean",
+        "boolean",
+        "array",
+        "array",
+        "object",
+        "object",
+        "function",
+        "function",
+    ];
 
     for (const [i, bag] of bags.entries()) {
         if (bag !== undefined) {

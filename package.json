@@ -1,6 +1,6 @@
 {
   "name": "za-utils",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A suite of utility functions for Node development in TypeScript",
   "repository": "ZombieAlex/za-utils",
   "type": "module",

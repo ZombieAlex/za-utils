@@ -87,10 +87,10 @@ test("assertShape validates functions", (t) => {
 test("assertShape validates lodash paths", (t) => {
     const example = { one: 1, arr: [32, "string", [99]], nested: { two: 99, arr: ["blue", 12] } };
     t.throws(() => {
-        assertShape(example, { strings: ["arr[2][0]"] });
+        assertShape(example, { stringPaths: ["arr[2][0]"] });
     });
     t.notThrows(() => {
-        assertShape(example, { strings: ["arr[1]"], numbers: ["arr[2][0]", "nested.two", "nested.arr[1]"] });
+        assertShape(example, { stringPaths: ["arr[1]"], numberPaths: ["arr[2][0]", "nested.two", "nested.arr[1]"] });
     });
 });
 
