@@ -123,8 +123,12 @@ export function assertShapeOf<T>(object: unknown, shape: ShapeConfig<T>): assert
  * @param condition
  * @returns
  */
-export function isType<T>(object: unknown, validator: (object?: Partial<T>) => boolean): object is T {
-    return validator(object as Partial<T>);
+export function isType<T>(object: unknown, validator?: (object?: Partial<T>) => boolean): object is T {
+    if (typeof validator === "function") {
+        return validator(object as Partial<T>);
+    }
+
+    return true;
 }
 
 /**
@@ -133,8 +137,8 @@ export function isType<T>(object: unknown, validator: (object?: Partial<T>) => b
  * @param condition
  * @returns
  */
-export function assertType<T>(object: unknown, validator: (object?: Partial<T>) => boolean): asserts object is T {
-    if (!validator(object as Partial<T>)) {
+export function assertType<T>(object: unknown, validator?: (object?: Partial<T>) => boolean): asserts object is T {
+    if (typeof validator === "function" && !validator(object as Partial<T>)) {
         throw new TypeError("object was not the expected type");
     }
 }

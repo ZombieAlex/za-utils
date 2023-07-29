@@ -146,6 +146,7 @@ test("isType works", (t) => {
     const object = { a: 32 };
     t.true(isType<{ a: number }>(object, (o) => typeof o?.a === "number"));
     t.false(isType<{ a: number }>(object, (o) => typeof o?.a === "string"));
+    t.true(isType<{ red: string }>(object));
 });
 
 test("assertType works", (t) => {
@@ -154,6 +155,8 @@ test("assertType works", (t) => {
     t.notThrows(() => assertType<{ a: number }>(object, (o) => typeof o?.a === "number"));
     // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
     t.throws(() => assertType<{ a: number }>(object, (o) => typeof o?.a === "string"));
+    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+    t.notThrows(() => assertType<{ red: string }>(object));
 });
 
 test("isNumber works", (t) => {
