@@ -9,8 +9,8 @@ export interface RefinedEventEmitter<EventNames extends string | symbol, Arg0 = 
     removeAllListeners(event?: EventNames): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    listeners(event: EventNames): (a0: Arg0, a1: Arg1, a2: Arg2, a3: Arg3) => void[];
-    rawListeners(event: EventNames): (a0: Arg0, a1: Arg1, a2: Arg2, a3: Arg3) => void[];
+    listeners(event: EventNames): Array<(a0: Arg0, a1: Arg1, a2: Arg2, a3: Arg3) => void>;
+    rawListeners(event: EventNames): Array<(a0: Arg0, a1: Arg1, a2: Arg2, a3: Arg3) => void>;
     emit(event: EventNames, a0: Arg0, a1: Arg1, a2: Arg2, a3: Arg3): boolean;
     listenerCount(type: EventNames): number;
     prependListener(event: EventNames, listener: (a0: Arg0, a1: Arg1, a2: Arg2, a3: Arg3) => void): this;
